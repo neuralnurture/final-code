@@ -60,7 +60,7 @@ def to_int_round_or_none(x):
     return int(x) if x is not None else None
 
 def load_train():
-    with open("/home/ysonale/PromptMatrix/mipro_features/final_features/train.jsonl", 'r') as f:
+    with open("./lambdaMART-flight-ranker/datasets/final_features/train.jsonl", 'r') as f:
         validation_raw_data = [json.loads(line) for line in f]
     
     inter_train_data = {}
@@ -158,7 +158,7 @@ def load_train():
     return train_data
 
 def load_val():
-    with open("/home/ysonale/PromptMatrix/mipro_features/final_features/val.jsonl", 'r') as f:
+    with open("./lambdaMART-flight-ranker/datasets/final_features/val.jsonl", 'r') as f:
         validation_raw_data = [json.loads(line) for line in f]
     
     inter_val_data = {}

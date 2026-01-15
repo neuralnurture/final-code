@@ -1,0 +1,5 @@
+dspy==3.0.4
+pandas==2.3.3
+torch==2.8.0+cu128
+transformers==4.57.1
+sglang==0.5.4

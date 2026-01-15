@@ -23,9 +23,14 @@ final-code/
 ### Prerequisites
 
 - Python 3.8 or higher
-- DSPy framework
-- Pandas, NumPy
 - Local LLM model (Llama 3.2 3B Instruct recommended)
+- GPU with sufficient VRAM
+
+### Installing Dependencies
+
+```bash
+pip install -r requirements.txt
+```
 
 ### SGLang Server Configuration
 
@@ -33,17 +38,12 @@ Before running any of the optimization scripts, launch the SGLang server with th
 
 ```bash
 python3 -m sglang.launch_server \
-    --model-path /home/ysonale/.cache/huggingface/hub/models--meta-llama--Llama-3.2-3B-Instruct/snapshots/0cb88a4f764b7a12671c53f0838cd831a0843b95 \
+    --model-path /path/to/Llama-3.2-3B-Instruct \
     --port 30000 \
     --attention-backend triton \
     --sampling-backend pytorch \
     --mem-fraction-static 0.48
 ```
-
-**Configuration Parameters:**
-- `--port`: Server port (default: 30000)
-- `--model-path`: Path to the LLM model
-- `--mem-fraction-static`: GPU memory allocation (adjust based on available resources)
 
 ### Language Model Configuration
 
@@ -60,8 +60,41 @@ lm = dspy.LM(
 )
 ```
 
-**Configuration Notes:**
-- Update `api_base` to match your SGLang server port
-- When using Meta Hugging Face models, prefix the model name with `openai/` to ensure compatibility
-- Adjust `temperature` and `top_p` parameters as needed for your use case
-- The `api_key` value is a placeholder when using local models
+## How to Run
+
+### Step 1: Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 2: Feature Engineering Setup
+
+Clone and set up the lambdaMART-flight-ranker repository, then run the feature engineering script:
+
+```bash
+git clone https://github.com/neuralnurture/lambdaMART-flight-ranker.git
+cd lambdaMART-flight-ranker
+# Follow the instructions in the repository till you run the below line then stop
+python feature_engineering.py
+```
+
+### Step 3: Launch SGLang Server
+
+```bash
+sglang server start
+```
+
+### Step 4: Run OPRO or MIPRO
+
+**To run OPRO:**
+```bash
+cd opro/
+python opro.py
+```
+
+**To run MIPRO:**
+```bash
+cd mipro/
+python mipro.py
+```
